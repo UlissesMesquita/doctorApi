@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CreateOrUpdateDoctor;
+use App\Models\Doctor;
 use Illuminate\Http\Request;
 
 class DoctorController extends Controller
@@ -32,9 +34,31 @@ class DoctorController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateOrUpdateDoctor $request)
     {
-        //
+
+        try {
+            if (is_null($request->all()) {
+
+                $doctor = Doctor::create($request->all());
+
+                return response()->json([
+                    'data' => "Created",
+                    'code' => response()->status()
+                ]);
+    
+            }
+        } catch (\Exception $e) {
+            return response()->json([
+                'data' => "Created",
+                'code' => response()->status(),
+                'error' => $e->getMessage()
+            ]);
+        }
+
+
+
+
     }
 
     /**
