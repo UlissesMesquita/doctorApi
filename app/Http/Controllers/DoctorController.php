@@ -23,18 +23,23 @@ class DoctorController extends Controller
      */
     public function index()
     {
-        //
+
+        try {
+            $doctors = $this->model->all();
+            return response()->json([
+                'message' => "List",
+                'data' => $doctors
+            ], 200);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'data' => "Error",
+                'error' => $e->getMessage()
+            ], 400);
+        }
+
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
@@ -46,9 +51,7 @@ class DoctorController extends Controller
     {
 
         try {
-
             $doctor = $this->model->create($request->all());
-            
             return response()->json([
                 'message' => "Created",
                 'data' => $doctor
@@ -64,27 +67,7 @@ class DoctorController extends Controller
 
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
@@ -96,9 +79,7 @@ class DoctorController extends Controller
     public function update(CreateOrUpdateDoctor $request, $id)
     {
         try {
-
             $doctor = $this->model->where('id', $id)->update($request->all());
-            
             return response()->json([
                 'message' => "Updated",
                 'data' => $doctor
@@ -122,6 +103,20 @@ class DoctorController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            $doctor = $this->model->where('id', $id)->delete();
+            return response()->json([
+                'message' => "Deleted",
+                'data' => $doctor
+            ], 200);
+
+            
+            
+        } catch (\Exception $e) {
+            return response()->json([
+                'data' => "Error",
+                'error' => $e->getMessage()
+            ], 400);
+        }
     }
 }
