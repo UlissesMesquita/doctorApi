@@ -50,8 +50,8 @@ class DoctorController extends Controller
             $doctor = $this->model->create($request->all());
             
             return response()->json([
-                'data' => "Created",
-                'dado' => $doctor
+                'message' => "Created",
+                'data' => $doctor
             ], 200);
 
         } catch (\Exception $e) {
@@ -100,8 +100,8 @@ class DoctorController extends Controller
             $doctor = $this->model->where('id', $id)->update($request->all());
             
             return response()->json([
-                'data' => "Update",
-                ''
+                'message' => "Updated",
+                'data' => $doctor
             ], 200);
 
             
