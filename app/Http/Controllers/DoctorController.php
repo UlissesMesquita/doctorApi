@@ -8,6 +8,14 @@ use Illuminate\Http\Request;
 
 class DoctorController extends Controller
 {
+
+    protected Doctor $model;
+
+    public function __construct(){
+        $this->model = new Doctor();
+    }
+
+
     /**
      * Display a listing of the resource.
      *
@@ -38,25 +46,20 @@ class DoctorController extends Controller
     {
 
         try {
-            if (is_null($request->all()) {
 
-                $doctor = Doctor::create($request->all());
-
-                return response()->json([
-                    'data' => "Created",
-                    'code' => response()->status()
-                ]);
-    
-            }
-        } catch (\Exception $e) {
+            $doctor = $this->model->create($request->all());
+            
             return response()->json([
                 'data' => "Created",
-                'code' => response()->status(),
+                'dado' => $doctor
+            ], 200);
+
+        } catch (\Exception $e) {
+            return response()->json([
+                'data' => "Error",
                 'error' => $e->getMessage()
-            ]);
+            ], 400);
         }
-
-
 
 
     }
@@ -90,9 +93,25 @@ class DoctorController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(CreateOrUpdateDoctor $request, $id)
     {
-        //
+        try {
+
+            $doctor = $this->model->where('id', $id)->update($request->all());
+            
+            return response()->json([
+                'data' => "Update",
+                ''
+            ], 200);
+
+            
+            
+        } catch (\Exception $e) {
+            return response()->json([
+                'data' => "Error",
+                'error' => $e->getMessage()
+            ], 400);
+        }
     }
 
     /**

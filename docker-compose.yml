@@ -31,7 +31,7 @@ services:
     restart: always
     container_name: laravel-nginx-usm
     ports:
-      - "9155:80"
+      - "9157:80"
     volumes: 
       - ./:/var/www
     depends_on: 

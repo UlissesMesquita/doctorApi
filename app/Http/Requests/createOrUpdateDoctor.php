@@ -29,16 +29,32 @@ class CreateOrUpdateDoctor extends FormRequest
                 'required',
                 'max:120',
                 'min:3',
-                'unique:doctors',
+                'unique:doctors,name',
             ],
             'speciality' => [
                 'string',
                 'required',
                 'max:120',
                 'min:3',
-                'unique:doctors',
+                'unique:doctors,speciality',
                 ]
         ];
-        
     }
+
+    public function messages() {
+        return [
+            'name.required' => 'O campo name é obrigatório',
+            'name.string' => 'O campo name deve ser string',
+            'name.max' => 'O campo name deve ter no max 120 caracteres',
+            'name.min' => 'O campo name deve ter no min 3 caracteres',
+            'name.unique' => 'Esse name :attribute já existe, tente outro',
+
+            'speciality.required' => 'O campo speciality é obrigatório',
+            'speciality.string' => 'O campo speciality deve ser string',
+            'speciality.max' => 'O campo speciality deve ter no max 120 caracteres',
+            'speciality.min' => 'O campo speciality deve ter no min 3 caracteres',
+            'speciality.unique' => 'Essa speciality: ":attribute" já existe, tente outro'
+        ];
+    }
+
 }
